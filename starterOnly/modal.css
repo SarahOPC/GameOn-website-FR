@@ -526,4 +526,8 @@ footer {
     opacity: 1;
   }
 }
-
+.error {
+  display: block;
+  color: red;
+  font-size: 0.5em;
+}
