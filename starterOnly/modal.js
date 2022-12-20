@@ -103,7 +103,15 @@ function validate() {
   localStorage.setItem("quantity", document.getElementById("quantity").value);
 
   if (regexValidation() && radioSelected() && checkboxSelected()) {
-    window.alert("Votre formulaire a bien été envoyé à nos services");
+    document.querySelector(".btn-submit").textContent="Fermer";
+    document.querySelector(".btn-submit").addEventListener("click", closeModal);
+    document.querySelector(".modal-body").textContent="Merci pour votre inscription";
+    document.querySelector(".modal-body").style.height="27em";
+    document.querySelector(".modal-body").style.width="18em";
+    document.querySelector(".modal-body").style.padding="1em";
+    document.querySelector(".modal-body").style.display="flex";
+    document.querySelector(".modal-body").style.justifyContent="center";
+    document.querySelector(".modal-body").style.alignItems="center";
     localStorage.clear();
     return true;
   } else {
