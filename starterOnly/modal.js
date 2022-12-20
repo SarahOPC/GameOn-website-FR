@@ -32,23 +32,28 @@ function closeModal() {
 // Regex
 const nameRegex = /^[a-zA-Z]{2,}([^0-9]*)$/; // Au moins deux lettres, pas de chiffre
 const emailRegex = /^((?!\.)[\w_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/; // Pas de . en debut ou fin mais ok au milieu, ok pour double nom de domaine, pas d'espace, pas de cq speciaux
+const birthDateRegex = /\s+(?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])[-/.](?:19\d{2}|20[01][0-9]|2020)\b/;
 const quantityRegex = /^[0-9]*$/; // Que des chiffres
 
 function regexValidation() {
   if (!nameRegex.test(document.getElementById("first").value)) {
-    window.alert("Une erreur s'est glissée dans votre formulaire au niveau du prénom");
+    window.alert("Veuillez entrer 2 caractères ou plus pour le champ du prénom.");
   }
   if(!nameRegex.test(document.getElementById("last").value)) {
-    window.alert("Une erreur s'est glissée dans votre formulaire au niveau du nom");
+    window.alert("Veuillez entrer 2 caractères ou plus pour le champ du nom.");
   }
   if(!emailRegex.test(document.getElementById("email").value)) {
     window.alert("Une erreur s'est glissée dans votre formulaire au niveau de l'email");
+  }
+  if(!birthDateRegex.test(document.getElementById("birthdate").value)) {
+    window.alert("Vous devez entrer votre date de naissance.");
   }
   if(!quantityRegex.test(document.getElementById("quantity").value)) {
     window.alert("Une erreur s'est glissée dans votre formulaire au niveau de la quantité");
   }
   if(nameRegex.test(document.getElementById("first").value) && nameRegex.test(document.getElementById("last").value)
-  && emailRegex.test(document.getElementById("email").value) && quantityRegex.test(document.getElementById("quantity").value)) {
+  && emailRegex.test(document.getElementById("email").value) && quantityRegex.test(document.getElementById("bithdate").value) 
+  && quantityRegex.test(document.getElementById("quantity").value)) {
     return true;
   }
 };
@@ -65,7 +70,7 @@ function radioSelected() {
 // Checkbox1 is selected
 function checkboxSelected() {
   if(!document.getElementById("checkbox1").checked) {
-  window.alert("Vous devez accepter nos conditions d'utilisation pour pouvoir valider le formulaire !");
+  window.alert("Vous devez vérifier que vous acceptez les termes et conditions.");
   } else {
     return true;
   }
