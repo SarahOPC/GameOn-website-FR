@@ -103,15 +103,14 @@ function validate() {
   localStorage.setItem("quantity", document.getElementById("quantity").value);
 
   if (regexValidation() && radioSelected() && checkboxSelected()) {
-    document.querySelector(".btn-submit").textContent="Fermer";
-    document.querySelector(".btn-submit").addEventListener("click", closeModal);
-    document.querySelector(".modal-body").textContent="Merci pour votre inscription";
-    document.querySelector(".modal-body").style.height="27em";
-    document.querySelector(".modal-body").style.width="18em";
-    document.querySelector(".modal-body").style.padding="1em";
-    document.querySelector(".modal-body").style.display="flex";
-    document.querySelector(".modal-body").style.justifyContent="center";
-    document.querySelector(".modal-body").style.alignItems="center";
+    const myModal = document.querySelector(".modal-body");
+    myModal.textContent="Merci pour votre inscription";
+    myModal.setAttribute("id", "thanksModal");
+    const button = document.createElement('button');
+    button.setAttribute("id", "myCloseButton");
+    const text = document.createTextNode("Fermer");
+    button.appendChild(text);
+    myModal.appendChild(button);
     localStorage.clear();
     return true;
   } else {

@@ -321,7 +321,7 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
-.btn-submit,
+.btn-submit, #myCloseButton,
 .btn-signup {
   background: #fe142f;
   display: block;
@@ -333,6 +333,23 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
+#myCloseButton {
+  position: absolute;
+  bottom: 5%;
+}
+
+#thanksModal {
+  height: 27em;
+  width: 18em;
+  padding: 1em;
+  flex-wrap: wrap;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* custom select styles */
 .custom-select {
   position: relative;
