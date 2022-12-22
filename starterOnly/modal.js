@@ -111,6 +111,8 @@ function validate() {
     const text = document.createTextNode("Fermer");
     button.appendChild(text);
     myModal.appendChild(button);
+    button.addEventListener("click", closeModal);
+
     localStorage.clear();
     return true;
   } else {
