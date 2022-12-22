@@ -36,20 +36,35 @@ const birthdateRegex = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/; /
 const quantityRegex = /^[0-9]*$/; // Que des chiffres
 
 function regexValidation() {
-  if (!nameRegex.test(document.getElementById("first").value) || document.getElementById("first").value == "") {
-    document.getElementById("errorFirst").textContent="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+  if (!nameRegex.test(document.getElementById("first").value) || document.getElementById("first").value == "" || document.getElementById("first").value.length < 2) {
+    document.getElementById("errorFirst").textContent="Veuillez entrer 2 caractères ou plus pour le champ du prénom."
   }
-  if(!nameRegex.test(document.getElementById("last").value) || document.getElementById("last").value == "") {
+  else {
+    document.getElementById("errorFirst").textContent="";
+  }
+  if(!nameRegex.test(document.getElementById("last").value) || document.getElementById("last").value == "" || document.getElementById("last").value.length < 2) {
     document.getElementById("errorLast").textContent="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+  }
+  else {
+    document.getElementById("errorLast").textContent="";
   }
   if(!emailRegex.test(document.getElementById("email").value) || document.getElementById("email").value == "") {
     document.getElementById("errorEmail").textContent="Une erreur s'est glissée dans votre formulaire au niveau de l'email.";
   }
+  else {
+    document.getElementById("errorEmail").textContent="";
+  }
   if(!birthdateRegex.test(document.getElementById("birthdate").value) || document.getElementById("birthdate").value == "") {
     document.getElementById("errorBirthdate").textContent="Vous devez entrer votre date de naissance";
   }
+  else {
+    document.getElementById("errorBirthdate").textContent="";
+  }
   if(!quantityRegex.test(document.getElementById("quantity").value) || document.getElementById("quantity").value == "") {
     document.getElementById("errorQuantity").textContent="Une erreur s'est glissée dans votre formulaire au niveau de la quantité";
+  }
+  else {
+    document.getElementById("errorQuantity").textContent="";
   }
   if(nameRegex.test(document.getElementById("first").value) && nameRegex.test(document.getElementById("last").value) 
   && emailRegex.test(document.getElementById("email").value) && birthdateRegex.test(document.getElementById("birthdate").value) 
@@ -57,6 +72,18 @@ function regexValidation() {
     return true;
   }
 };
+
+// Check regex while typing
+
+function checkWhileTyping() {
+  document.getElementById("first").addEventListener('input', regexValidation);
+  document.getElementById("last").addEventListener('input', regexValidation);
+  document.getElementById("email").addEventListener('input', regexValidation);
+  document.getElementById("birthdate").addEventListener('input', regexValidation);
+  document.getElementById("quantity").addEventListener('input', regexValidation);
+}
+
+checkWhileTyping();
 
 // Radio button is selected
 function radioSelected() {
@@ -111,9 +138,11 @@ function validate() {
     const text = document.createTextNode("Fermer");
     button.appendChild(text);
     myModal.appendChild(button);
-    button.addEventListener("click", closeModal);
-
-    localStorage.clear();
+    button.addEventListener("click", () => {
+      closeModal();
+      location.reload();
+      localStorage.clear();
+    });
     return true;
   } else {
     window.alert("Une erreur s'est produite lors de l'envoi du formulaire");
