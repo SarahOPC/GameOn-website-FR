@@ -35,52 +35,67 @@ const emailRegex = /^((?!\.)[\w_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/; // Pas de
 const birthdateRegex = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/; // YYYY/MM/DD
 const quantityRegex = /^[0-9]*$/; // Que des chiffres
 
-function regexValidation() {
+function firstRegexValidation() {
   if (!nameRegex.test(document.getElementById("first").value) || document.getElementById("first").value == "" || document.getElementById("first").value.length < 2) {
     document.getElementById("errorFirst").textContent="Veuillez entrer 2 caractères ou plus pour le champ du prénom."
   }
   else {
     document.getElementById("errorFirst").textContent="";
   }
-  if(!nameRegex.test(document.getElementById("last").value) || document.getElementById("last").value == "" || document.getElementById("last").value.length < 2) {
-    document.getElementById("errorLast").textContent="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+}
+
+  function lastRegexValidation() {
+    if(!nameRegex.test(document.getElementById("last").value) || document.getElementById("last").value == "" || document.getElementById("last").value.length < 2) {
+      document.getElementById("errorLast").textContent="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    }
+    else {
+      document.getElementById("errorLast").textContent="";
+    }
   }
-  else {
-    document.getElementById("errorLast").textContent="";
+
+  function emailRegexValidation() {
+    if(!emailRegex.test(document.getElementById("email").value) || document.getElementById("email").value == "") {
+      document.getElementById("errorEmail").textContent="Une erreur s'est glissée dans votre formulaire au niveau de l'email.";
+    }
+    else {
+      document.getElementById("errorEmail").textContent="";
+    }
   }
-  if(!emailRegex.test(document.getElementById("email").value) || document.getElementById("email").value == "") {
-    document.getElementById("errorEmail").textContent="Une erreur s'est glissée dans votre formulaire au niveau de l'email.";
+
+  function birthdateRegexValidation() {
+    if(!birthdateRegex.test(document.getElementById("birthdate").value) || document.getElementById("birthdate").value == "") {
+      document.getElementById("errorBirthdate").textContent="Vous devez entrer votre date de naissance";
+    }
+    else {
+      document.getElementById("errorBirthdate").textContent="";
+    }
   }
-  else {
-    document.getElementById("errorEmail").textContent="";
+
+  function quantityRegexValidation() {
+    if(!quantityRegex.test(document.getElementById("quantity").value) || document.getElementById("quantity").value == "") {
+      document.getElementById("errorQuantity").textContent="Une erreur s'est glissée dans votre formulaire au niveau de la quantité";
+    }
+    else {
+      document.getElementById("errorQuantity").textContent="";
+    }
   }
-  if(!birthdateRegex.test(document.getElementById("birthdate").value) || document.getElementById("birthdate").value == "") {
-    document.getElementById("errorBirthdate").textContent="Vous devez entrer votre date de naissance";
+
+  function regexValidation() {
+    if(nameRegex.test(document.getElementById("first").value) && nameRegex.test(document.getElementById("last").value) 
+    && emailRegex.test(document.getElementById("email").value) && birthdateRegex.test(document.getElementById("birthdate").value) 
+    && quantityRegex.test(document.getElementById("quantity").value)) {
+      return true;
+    }
   }
-  else {
-    document.getElementById("errorBirthdate").textContent="";
-  }
-  if(!quantityRegex.test(document.getElementById("quantity").value) || document.getElementById("quantity").value == "") {
-    document.getElementById("errorQuantity").textContent="Une erreur s'est glissée dans votre formulaire au niveau de la quantité";
-  }
-  else {
-    document.getElementById("errorQuantity").textContent="";
-  }
-  if(nameRegex.test(document.getElementById("first").value) && nameRegex.test(document.getElementById("last").value) 
-  && emailRegex.test(document.getElementById("email").value) && birthdateRegex.test(document.getElementById("birthdate").value) 
-  && quantityRegex.test(document.getElementById("quantity").value)) {
-    return true;
-  }
-};
 
 // Check regex while typing
 
 function checkWhileTyping() {
-  document.getElementById("first").addEventListener('input', regexValidation);
-  document.getElementById("last").addEventListener('input', regexValidation);
-  document.getElementById("email").addEventListener('input', regexValidation);
-  document.getElementById("birthdate").addEventListener('input', regexValidation);
-  document.getElementById("quantity").addEventListener('input', regexValidation);
+  document.getElementById("first").addEventListener('input', firstRegexValidation);
+  document.getElementById("last").addEventListener('input', lastRegexValidation);
+  document.getElementById("email").addEventListener('input', emailRegexValidation);
+  document.getElementById("birthdate").addEventListener('input', birthdateRegexValidation);
+  document.getElementById("quantity").addEventListener('input', quantityRegexValidation);
 }
 
 checkWhileTyping();
